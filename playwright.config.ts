@@ -11,6 +11,9 @@ require('dotenv').config();
  */
 export default defineConfig({
 	testDir: './tests',
+	/* Visual regression snapshot location */
+	snapshotPathTemplate:
+		'{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
 	/* Run tests in files in parallel */
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -23,7 +26,12 @@ export default defineConfig({
 	timeout: Timeouts.TEST,
 	/* Expect timeout - how long to wait for assertions */
 	expect: {
-		timeout: Timeouts.EXPECT
+		timeout: Timeouts.EXPECT,
+		/* Visual comparison settings */
+		toHaveScreenshot: {
+			/* Pixel difference threshold (0-1) - 0.2 means 20% pixel difference allowed */
+			threshold: 0.2
+		}
 	},
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: [
@@ -44,15 +52,23 @@ export default defineConfig({
 	projects: [
 		{
 			name: 'chromium',
-			use: { ...devices['Desktop Chrome'] }
+			use: { ...devices['Desktop Chrome'] },
+			testMatch: /^(?!.*visual).*\.spec\.ts$/
 		},
 		{
 			name: 'firefox',
-			use: { ...devices['Desktop Firefox'] }
+			use: { ...devices['Desktop Firefox'] },
+			testMatch: /^(?!.*visual).*\.spec\.ts$/
 		},
 		{
 			name: 'webkit',
-			use: { ...devices['Desktop Safari'] }
+			use: { ...devices['Desktop Safari'] },
+			testMatch: /^(?!.*visual).*\.spec\.ts$/
+		},
+		{
+			name: 'visual-chromium',
+			use: { ...devices['Desktop Chrome'] },
+			testMatch: /.*visual.*\.spec\.ts$/
 		}
 
 		/* Test against mobile viewports. */

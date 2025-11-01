@@ -7,6 +7,7 @@
 		"test": "npx playwright test tests/e2e/",
 		"test-ui": "npx playwright test tests/e2e/ --ui",
 		"test:api": "npx playwright test tests/api/",
+		"test:visual": "npx playwright test tests/visual/",
 		"test:all": "npx playwright test",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
