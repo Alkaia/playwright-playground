@@ -2,12 +2,7 @@ import {
   defineConfig,
   devices,
 } from '@playwright/test';
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+import { Timeouts } from './helpers/constants';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -20,15 +15,24 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* Parallel execution - enabled in CI for faster test runs (GitHub Actions free tier supports this) */
+  workers: undefined, // Uses default (CPU cores) - works fine in GitHub Actions
+  /* Test timeout - maximum time a test can run */
+  timeout: Timeouts.TEST,
+  /* Expect timeout - how long to wait for assertions */
+  expect: {
+    timeout: Timeouts.EXPECT,
+  },
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'dot',
+  reporter: [
+    ['dot'],
+    ['allure-playwright', { outputFolder: 'allure-results' }]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     screenshot: 'only-on-failure',
-    baseURL: 'https://www.demoblaze.com/',
+    baseURL: 'https://www.demoblaze.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
       trace: 'on-first-retry',
