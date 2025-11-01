@@ -24,7 +24,7 @@
   },
   "include": [
     "tests/*.ts",
-    "config/playwright.config.ts"
+    "playwright.config.ts"
   ],
   "exclude": [
     "node_modules"

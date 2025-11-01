@@ -4,7 +4,7 @@ import {
 } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/index.html');
 });
 
 test.describe('Demo Test', () => {
