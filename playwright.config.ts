@@ -4,6 +4,10 @@ import {
 } from '@playwright/test';
 import { Timeouts } from './helpers/constants';
 
+// Load environment variables from .env file (if it exists)
+// Uses require for compatibility with Playwright's config loader
+require('dotenv').config();
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -32,7 +36,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     screenshot: 'only-on-failure',
-    baseURL: 'https://www.demoblaze.com',
+    baseURL: process.env.BASE_URL || 'https://www.demoblaze.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
       trace: 'on-first-retry',

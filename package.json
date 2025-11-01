@@ -21,6 +21,7 @@
     "prettier": "^3.2.5"
   },
   "devDependencies": {
-    "allure-playwright": "^3.4.2"
+    "allure-playwright": "^3.4.2",
+    "dotenv": "^17.2.3"
   }
 }
