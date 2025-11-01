@@ -1,14 +1,14 @@
 import { APIRequestContext } from '@playwright/test';
-import { ApiConfig } from 'helpers/apiConfig';
 import { JsonValue } from 'helpers/types';
 
 /**
  * API Client
+ * Uses API_BASE_URL environment variable or defaults to JSONPlaceholder
  */
 export class ApiClient {
   constructor(
     private request: APIRequestContext,
-    private baseUrl: string = ApiConfig.API_BASE_URL
+    private baseUrl: string = process.env.API_BASE_URL || 'https://jsonplaceholder.typicode.com'
   ) {}
 
   /**
