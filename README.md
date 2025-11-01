@@ -16,14 +16,14 @@ npm run test:all      # Run all tests (UI + API)
 ```
 
 ## API Testing
-Playwright has built-in support for API testing using the `request` fixture. You can test REST APIs without opening a browser:
+Playwright has built-in support for API testing using the `request` fixture. We can test REST APIs without opening a browser:
 
 - **GET, POST, PUT, DELETE** requests
 - **Response validation** (status, headers, body)
 - **Authentication** (headers, tokens)
 - **Error handling**
 
-See `tests/api-example.spec.ts` for examples.
+See `tests/api/users.spec.ts` and `tests/api/posts.spec.ts` for examples.
 
 ## Allure Reports
 After running tests, Allure results are generated in `allure-results` directory.

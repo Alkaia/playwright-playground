@@ -20,10 +20,15 @@
       "config/*": [
         "./config/*"
       ],
+      "helpers/*": [
+        "./helpers/*"
+      ]
     },
   },
   "include": [
-    "tests/*.ts",
+    "tests/**/*.ts",
+    "pageObjects/**/*.ts",
+    "helpers/**/*.ts",
     "playwright.config.ts"
   ],
   "exclude": [
