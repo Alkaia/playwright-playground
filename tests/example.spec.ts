@@ -4,14 +4,10 @@ import {
 } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://www.demoblaze.com/index.html');
+  await page.goto('/');
 });
 
 test.describe('Demo Test', () => {
-  test('check url', async ({ page }) => {
-    await expect(page.url().includes('/index.html')).toBeTruthy();
-  });
-
   test('has title', async ({ page }) => {
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle(/STORE/);
@@ -23,5 +19,6 @@ test.describe('Demo Test', () => {
 
     // Expects page to have a heading with the name of Products.
     await expect(page.getByRole('heading', { name: 'Products' })).toBeVisible();
+    expect(page.url().includes('/cast.html')).toBeTruthy();
   });
 });
