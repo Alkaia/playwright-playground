@@ -4,9 +4,8 @@
  */
 
 export const Routes = {
-  HOME: '/index.html',
-  CART: '/cart.html',
+	HOME: '/index.html',
+	CART: '/cart.html'
 } as const;
 
-export type Route = typeof Routes[keyof typeof Routes];
-
+export type Route = (typeof Routes)[keyof typeof Routes];
