@@ -7,3 +7,5 @@ node_modules/
 /allure-report/
 .DS_Store
 .env
+# Visual regression test snapshots are committed (baseline images)
+# test-results/ folder is ignored but snapshots inside are tracked for visual comparison

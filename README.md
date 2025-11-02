@@ -14,7 +14,8 @@ npx playwright show-report # HTML report
 ```bash
 npm test              # Run UI tests
 npm run test:api      # Run API tests
-npm run test:all      # Run all tests (UI + API)
+npm run test:visual   # Run visual regression tests
+npm run test:all      # Run all tests (UI + API + Visual)
 npm run test-ui       # Run UI tests in interactive mode
 ```
 
@@ -59,6 +60,35 @@ Playwright has built-in support for API testing using the `request` fixture. We 
 
 See `tests/api/users.spec.ts` and `tests/api/posts.spec.ts` for examples.
 
+## Visual Regression Testing
+
+The project includes visual regression tests in `tests/visual/` using Playwright's built-in screenshot comparison:
+
+```bash
+npm run test:visual  # Run only visual regression tests
+npm run test:all    # Runs all tests including visual regression
+```
+
+**How it works:**
+
+- First run creates baseline screenshots
+- Subsequent runs compare against baselines
+- Detects visual differences (layout, styling, content changes)
+- Uses SSIM mode (perceptual comparison) for better accuracy
+
+**Updating baselines:**
+When intentional UI changes occur, update baselines:
+
+```bash
+npm run test:visual -- --update-snapshots  # Update visual test baselines
+```
+
+**Visual test examples:**
+
+- Full page screenshots (homepage, cart page)
+- Component-level screenshots (navbar, headers)
+- Cross-browser visual consistency
+
 ## Allure Reports
 
 After running tests, Allure results are generated in `allure-results` directory.
@@ -81,8 +111,12 @@ npm run allure:open      # Open generated report
 
 GitHub Actions runs on pushes/PRs with the following jobs:
 
-1. **Lint** - Runs ESLint and Prettier format checks
-2. **UI Tests** - Runs Playwright UI tests and uploads reports
-3. **API Tests** - Runs API tests
+1. **UI Tests** - Runs Playwright UI tests and uploads reports
+2. **API Tests** - Runs API tests
+3. **Visual Tests** - Runs visual regression tests (included in UI job)
+
+Note: Visual regression tests are in `tests/visual/` directory, separate from functional UI tests.
+
+Lint and format checks run locally via pre-commit and pre-push hooks.
 
 All jobs upload both Playwright HTML report and Allure report as artifacts.

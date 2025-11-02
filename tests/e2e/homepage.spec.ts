@@ -69,17 +69,6 @@ test.describe('Homepage E2E Tests', () => {
 		// Verify page is functional after navigation (assertions in test)
 		await homePage.waitForPageReady();
 		await expect(homePage.getCartLink()).toBeVisible();
-
-		// Header check is optional since not all pages have header element
-		// This demonstrates how to handle optional UI elements
-		const headerVisible = await homePage.isHeaderVisible();
-		// Log the result but don't fail - header is not required for page functionality
-		// eslint-disable-next-line playwright/no-conditional-in-test
-		if (!headerVisible) {
-			console.log(
-				'Header element not found - this is acceptable for demoblaze.com'
-			);
-		}
 	});
 
 	test('should handle page interactions correctly', async () => {
